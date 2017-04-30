@@ -169,6 +169,7 @@ if __name__ == "__main__":
         pickle.dump((scores, feature_names), outfile)
 
         for word, score in [(feature_names[i], s) for (i, s) in scores[:50]]:
+            # print("{}: {}".format(word, score))
             feature_set.add(word.encode("utf-8"))
 
     feature_set.remove("mr")
@@ -181,12 +182,12 @@ if __name__ == "__main__":
     tedata_file = DIR + '/' + 'tedata.pkl'
     if not os.path.exists(trdata_file):
         pickle.dump(feature_set, open(feature_file, 'wb'))
-    if not os.path.exists(tedata_file:
+    if not os.path.exists(tedata_file):
         pickle.dump((trdata, trlabel), open(trdata_file, 'wb'))
 
 
-    feature_file = DIR + '/' + 'features.pkl'
-    pickle.dump((tedata, telabel), open(tedata_file, 'wb'))
+    # feature_file = DIR + '/' + 'features.pkl'
+    # pickle.dump((tedata, telabel), open(tedata_file, 'wb'))
 
     # encoding(trdata[200], trlabel[200], feature_set)
 
