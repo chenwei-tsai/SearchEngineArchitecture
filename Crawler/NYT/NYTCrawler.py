@@ -12,7 +12,7 @@ api_key = 'a250db1c2ad749b290b633da7791a037'
 
 @gen.coroutine
 def main():
-    crawled_document_set_file = 'crawled_document_set.pickle'
+    crawled_document_set_file = 'nyt_crawled_document_set.pickle'
     if os.path.exists(crawled_document_set_file):
         try:
             crawled_document_set = pickle.load(open(crawled_document_set_file, 'rb'))
@@ -31,8 +31,14 @@ def main():
             validate_cert=False
         )
 
-        future = http_client.fetch(request)
-        response = yield future
+        try:
+            future = http_client.fetch(request)
+            response = yield future
+        except Exception as e:
+            print()
+            print(e)
+            print('Failed to fetch newswire api')
+            print()
 
         response_json = json.loads(response.body.decode('utf-8'))
         results = response_json['results']
@@ -88,7 +94,7 @@ def main():
                     document['updated_date'] = result['updated_date']
                     document['text'] = text
 
-                    folder = 'crawled_document'
+                    folder = 'nyt_crawled_document'
                     with open(folder + '/' + file_name + '.txt', 'w') as outfile:
                         json.dump(document, outfile)
 
