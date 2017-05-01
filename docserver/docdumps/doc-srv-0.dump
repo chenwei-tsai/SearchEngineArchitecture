@@ -1,0 +1,102 @@
+(dp1
+I9
+(dp2
+S'category'
+p3
+S'business'
+p4
+sS'title'
+p5
+S'Interest in Social Mission Gains Ground Among Small Companies'
+p6
+sS'url'
+p7
+S'https://www.nytimes.com/2015/04/24/business/dealbook/interest-in-social-mission-gains-ground-among-small-companies.html'
+p8
+sS'source'
+p9
+S'The New York Times'
+p10
+sS'score'
+p11
+F0.99984468422667494
+sS'date'
+p12
+S'2017-04-17T12:05:45-04:00'
+p13
+ssI3
+(dp14
+g3
+S'entertain'
+p15
+sg5
+S'Carrot Spirit Adds Verve to Spring Drinks'
+p16
+sg7
+S'https://www.nytimes.com/2017/04/17/dining/boardroom-spirits-carrot-liquor.html'
+p17
+sg9
+S'The New York Times'
+p18
+sg11
+F0.31490384615384603
+sg12
+S'2017-04-17T13:13:39-04:00'
+p19
+ssI12
+(dp20
+g3
+S'world'
+p21
+sg5
+S'The North Korea Paradox: Why There Are No Good Options'
+p22
+sg7
+S'https://www.nytimes.com/2017/04/17/world/asia/north-korea-nuclear-weapons-missiles-sanctions.html'
+p23
+sg9
+S'The New York Times'
+p24
+sg11
+F0.99999608420858266
+sg12
+S'2017-04-17T13:51:02-04:00'
+p25
+ssI6
+(dp26
+g3
+g15
+sg5
+S'A Tortilla Favored by Chefs Is Now Available Nationwide'
+p27
+sg7
+S'https://www.nytimes.com/2017/04/17/dining/corn-tortillas-masienda.html'
+p28
+sg9
+S'The New York Times'
+p29
+sg11
+F0.53995963514832035
+sg12
+S'2017-04-17T13:50:18-04:00'
+p30
+ssI15
+(dp31
+g3
+S'sport'
+p32
+sg5
+S'Mats Zuccarello Urges Rangers to Show Some Desperation in Game 4'
+p33
+sg7
+S'https://www.nytimes.com/2017/04/17/sports/hockey/rangers-canadiens-nhl-playoffs.html'
+p34
+sg9
+S'The New York Times'
+p35
+sg11
+F1
+sg12
+S'2017-04-17T12:42:45-04:00'
+p36
+ss.

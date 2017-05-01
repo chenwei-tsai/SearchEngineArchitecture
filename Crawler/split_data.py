@@ -7,15 +7,6 @@ DOC_DIR = DIR + '/crawled_document'
 
 list_files = os.listdir(DOC_DIR)
 
-art = ["Arts", "Theater", "Movies", "Books", "Multimedia/Photos"]
-sport = ["Well", "Sports", "Automobiles"]
-business = ["Job Market", "Your Money", "Business Day", "Real Estate"]
-tech = ["Science", "Technology"]
-entertain = ["Food", "Travel", "Watching", "Crosswords & Games", "Podcasts", "Magazine", "T Magazine", "Style", "Fashion & Style"]
-opinion = ["Opinion"]
-world = ["World"]
-us = ["U.S."]
-
 trsize = 0
 tesize = 0
 
