@@ -129,4 +129,3 @@ if __name__ == "__main__":
     outputs = classify(args.file_dir_path)
 
     dump_to_servers(outputs)
-
