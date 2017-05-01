@@ -1,0 +1,118 @@
+(dp1
+I2
+(dp2
+S'category'
+p3
+S'entertain'
+p4
+sS'title'
+p5
+S'Vegan Meringues Made From Aquafaba'
+p6
+sS'url'
+p7
+S'https://www.nytimes.com/2017/04/17/dining/aquafaba-vegan-meringue-shop.html'
+p8
+sS'source'
+p9
+S'The New York Times'
+p10
+sS'score'
+p11
+F0.92541616116998127
+sS'date'
+p12
+S'2017-04-17T13:03:11-04:00'
+p13
+ssI5
+(dp14
+g3
+g4
+sg5
+S"The Chainsmokers Prove They're a Hit on the Album Chart, Too"
+p15
+sg7
+S'https://www.nytimes.com/2017/04/17/arts/music/chainsmokers-memories-billboard-chart.html'
+p16
+sg9
+S'The New York Times'
+p17
+sg11
+F0.95540361873026292
+sg12
+S'2017-04-17T13:02:05-04:00'
+p18
+ssI8
+(dp19
+g3
+g4
+sg5
+S'This Friendly Bear Is a Menace to Ice'
+p20
+sg7
+S'https://www.nytimes.com/2017/04/17/dining/ice-shaver-japanese-bear-moma.html'
+p21
+sg9
+S'The New York Times'
+p22
+sg11
+F0.45153769416062489
+sg12
+S'2017-04-17T13:31:18-04:00'
+p23
+ssI11
+(dp24
+g3
+g4
+sg5
+S'Browse Cookbooks in the Lobby of a NoMad Hotel'
+p25
+sg7
+S'https://www.nytimes.com/2017/04/17/dining/kitchen-arts-and-letters-opens-park-south-hotel-nomad.html'
+p26
+sg9
+S'The New York Times'
+p27
+sg11
+F0.88907174332176442
+sg12
+S'2017-04-17T13:39:26-04:00'
+p28
+ssI14
+(dp29
+g3
+S'business'
+p30
+sg5
+S'Philanthropy Starts After Profits Are Tallied'
+p31
+sg7
+S'https://www.nytimes.com/2015/05/12/world/americas/philanthropy-starts-after-profits-are-tallied.html'
+p32
+sg9
+S'International New York Times'
+p33
+sg11
+F0.979331777996024
+sg12
+S'2017-04-17T12:06:10-04:00'
+p34
+ssI17
+(dp35
+g3
+g4
+sg5
+S"Time to be Honest About the Fear That's Getting in Your Way"
+p36
+sg7
+S'https://www.nytimes.com/2017/04/17/your-money/time-to-be-honest-about-the-fear-thats-getting-in-your-way.html'
+p37
+sg9
+S'The New York Times'
+p38
+sg11
+F0.98326634020066095
+sg12
+S'2017-04-17T13:39:06-04:00'
+p39
+ss.
