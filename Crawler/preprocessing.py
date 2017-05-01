@@ -16,16 +16,16 @@ te_list_files = os.listdir(TE_DOC_DIR)
 LOG_DIR = DIR + '/log'
 
 
-art = ["Arts", "Theater", "Movies", "Books", "Multimedia/Photos"]
+# art = ["Arts", "Theater", "Movies", "Books", "Multimedia/Photos"]
 sport = ["Well", "Sports", "Automobiles"]
 business = ["Job Market", "Your Money", "Business Day", "Real Estate"]
 tech = ["Science", "Technology"]
-entertain = ["Food", "Travel", "Watching", "Crosswords & Games", "Podcasts", "Magazine", "T Magazine", "Style", "Fashion & Style"]
+entertain = ["Food", "Travel", "Watching", "Crosswords & Games", "Podcasts", "Magazine", "T Magazine", "Style", "Fashion & Style", "Arts", "Theater", "Movies", "Books", "Multimedia/Photos"]
 opinion = ["Opinion"]
 world = ["World"]
 us = ["U.S."]
 
-classes = ["art", "sport", "business", "tech", "entertain", "opinion", "world", "us"]
+classes = ["sport", "business", "tech", "entertain", "opinion", "world", "us"]
 
 # WORD_DICT = set()
 
@@ -47,9 +47,9 @@ def readData():
         with open(TR_DOC_DIR + '/' + f) as fin:
             text = json.load(fin)
             target = text['section'].encode("utf-8").replace("\xe2\x80\x99", "'")
-            if target in art:
-                target = 'art'
-            elif target in sport:
+            # if target in art:
+            #     target = 'art'
+            if target in sport:
                 target = 'sport'
             elif target in business:
                 target = 'business'
@@ -86,9 +86,9 @@ def readData():
         with open(TE_DOC_DIR + '/' + f) as fin:
             text = json.load(fin)
             target = text['section'].encode("utf-8").replace("\xe2\x80\x99", "'")
-            if target in art:
-                target = 'art'
-            elif target in sport:
+            # if target in art:
+            #     target = 'art'
+            if target in sport:
                 target = 'sport'
             elif target in business:
                 target = 'business'
@@ -168,26 +168,27 @@ if __name__ == "__main__":
         outfile = open(log_file, 'wb')
         pickle.dump((scores, feature_names), outfile)
 
-        for word, score in [(feature_names[i], s) for (i, s) in scores[:50]]:
-            # print("{}: {}".format(word, score))
+        for word, score in [(feature_names[i], s) for (i, s) in scores[:120]]:
+            # if c == "opinion":
+            #     print("{}: {}".format(word, score))
             feature_set.add(word.encode("utf-8"))
 
     feature_set.remove("mr")
     feature_set.remove("ms")
     feature_set.remove("said")
 
-    print(feature_set)
+    print("Feature set: {}".format(len(feature_set)))
 
     trdata_file = DIR + '/' + 'trdata.pkl'
     tedata_file = DIR + '/' + 'tedata.pkl'
     if not os.path.exists(trdata_file):
-        pickle.dump(feature_set, open(feature_file, 'wb'))
-    if not os.path.exists(tedata_file):
         pickle.dump((trdata, trlabel), open(trdata_file, 'wb'))
+    if not os.path.exists(tedata_file):
+        pickle.dump((tedata, telabel), open(tedata_file, 'wb'))
 
 
-    # feature_file = DIR + '/' + 'features.pkl'
-    # pickle.dump((tedata, telabel), open(tedata_file, 'wb'))
+    feature_file = DIR + '/' + 'features.pkl'
+    pickle.dump(feature_set, open(feature_file, 'wb'))
 
     # encoding(trdata[200], trlabel[200], feature_set)
 

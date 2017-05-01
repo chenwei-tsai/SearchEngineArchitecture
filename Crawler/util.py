@@ -42,41 +42,41 @@ def tokenize(text):
     return tokens
 
 def category_to_label(cat):
-    if cat == "art":
+    # if cat == "art":
+    #     return 0
+    if cat == "sport":
         return 0
-    elif cat == "sport":
-        return 1
     elif cat == "business":
-        return 2
+        return 1
     elif cat == "tech":
-        return 3
+        return 2
     elif cat == "entertain":
-        return 4
+        return 3
     elif cat == "opinion":
-        return 5
+        return 4
     elif cat == "world":
-        return 6
+        return 5
     elif cat == "us":
-        return 7
+        return 6
     else:
         return -1
 
 def label_to_category(cat):
-    if cat == "0":
-        return "art"
-    elif cat == "1":
+    # if cat == "0":
+    #     return "art"
+    if cat == 0:
         return "sport"
-    elif cat == 2:
+    elif cat == 1:
         return "business"
-    elif cat == 3:
+    elif cat == 2:
         return "tech"
-    elif cat == 4:
+    elif cat == 3:
         return "entertain"
-    elif cat == 5:
+    elif cat == 4:
         return "opinion"
-    elif cat == 6:
+    elif cat == 5:
         return "world"
-    elif cat == 7:
+    elif cat == 6:
         return "us"
     else:
         return "ERROR"
