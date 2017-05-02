@@ -22,7 +22,7 @@ class SectionHandler(web.RequestHandler):
     @gen.coroutine
     # def get(self):
     def get(self, *args, **kwargs):
-        print('section server handling request')
+        # print('section server handling request')
         section = self.get_query_argument("s", None)
         if section is None or section not in self.data:
             self.write(json.dumps({"postings": []}))
