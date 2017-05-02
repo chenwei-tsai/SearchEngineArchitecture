@@ -80,3 +80,29 @@ def label_to_category(cat):
         return "us"
     else:
         return "ERROR"
+
+DATE_TO_NUM = {'Jan': "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"}
+
+def get_time(time):
+
+    if not 'T' in time:
+        date = time.split(',')[0].strip().split(' ')
+        seconds = time.split(',')[1].strip().split(' ')
+
+        if len(date[1]) == 1:
+            date[1] = '0' + date[1]
+
+        fmt_date = date[2] + DATE_TO_NUM[date[0]] + date[1]
+        if seconds[1] == 'pm':
+            fmt_seconds = str(int(second[0].split(':')[0]) + 12) + second[0].split(':')[1]
+        else:
+            fmt_seconds = "".join(seconds[0].split(':'))
+        if len(fmt_seconds) == 3:
+            fmt_seconds = '0' + fmt_seconds
+        out_time = fmt_date + fmt_seconds
+    else:
+        fmt_date = "".join(time.split("T")[0].strip().split('-'))
+        fmt_seconds = "".join(time.split("T")[1].strip().split('-')[0].split(':')[0:2])
+        out_time = fmt_date + fmt_seconds
+    return out_time
+
