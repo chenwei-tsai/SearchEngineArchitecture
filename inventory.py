@@ -20,9 +20,9 @@ FRONT_END_SERVER_PORT = BASE_PORT
 
 servers = dict()
 servers['front_end'] = "http://localhost:%d" % FRONT_END_SERVER_PORT
-servers['section_server'] = ["http://localhost:%d" % port for port in range(BASE_PORT + FRONT_END_SERVER_PORT,
-                                                                            BASE_PORT + FRONT_END_SERVER_PORT + SECTION_SERVER_NUM)]
-servers['document_server'] = ["http://localhost:%d" % port for port in range(BASE_PORT + FRONT_END_SERVER_PORT + SECTION_SERVER_NUM + 1,
-                                                                             BASE_PORT + FRONT_END_SERVER_PORT + SECTION_SERVER_NUM + DOCUMENT_SERVER_NUM + 1)]
+servers['section_server'] = ["http://localhost:%d" % port for port in range(BASE_PORT + 1,
+                                                                            BASE_PORT + 1 + SECTION_SERVER_NUM)]
+servers['document_server'] = ["http://localhost:%d" % port for port in range(BASE_PORT + 1 + SECTION_SERVER_NUM,
+                                                                             BASE_PORT + 1 + SECTION_SERVER_NUM + DOCUMENT_SERVER_NUM)]
 
 
