@@ -63,6 +63,7 @@ class SectionHandler(tornado.web.RequestHandler):
         document_results = list()
         for i in range(len(sorted_document_list)):
             doc_id = sorted_document_list[i].document_id
+            # print("doc id {}".format(doc_id))
 
             # todo
             # hash_value = int(hashlib.md5(str(doc_id).encode()).hexdigest()[:8], 16)
@@ -93,6 +94,7 @@ class SectionHandler(tornado.web.RequestHandler):
 
 def extract_information_from_document_server(document_map, string):
     json_map = json.loads(string)
+    # print(json_map)
     json_map = json_map['results'][0]
     # todo
     document_map['snippet'] = 'This is temp snippet'

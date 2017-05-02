@@ -118,6 +118,7 @@ def fetch_document(url, crawled_document_set):
             document['time'] = time
             document['text'] = text
             document['url'] = url
+            document['source'] = "FOX"
             file_name = url.split('/')[-1].split('.')[0]
 
             folder = 'fox_crawled_document'

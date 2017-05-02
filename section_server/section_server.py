@@ -11,36 +11,49 @@ except ImportError:
 
 class SectionHandler(web.RequestHandler):
 
-    def initialize(self, port, section_server_id, section_pickle):
+    def initialize(self, port, section_server_id, data):
         self.port = port
         self.section_server_id = section_server_id
-        self.data = section_pickle
+        self.data = data
+        # print(self.data["data"])
 
     @gen.coroutine
-    # def get(self):
     def get(self, *args, **kwargs):
         print('[section server %d] is handling section request' % self.section_server_id)
         section = self.get_query_argument("s", None)
-        if section is None or section not in self.data:
+        update = self.get_query_argument("update", None)
+        password = self.get_query_argument("p", None)
+
+        # self.data["data"] = "not first"
+
+        if update is not None and int(update) == 1:
+            if password is None or password != UPDATE_PASSWORD:
+                self.write(json.dumps({"postings": "Forbidden access"}))
+                return
+            self.data["data"] = load_section_pickle(self.section_server_id)
+            self.write(json.dumps({"postings": "success"}))
+            return
+
+        if section is None or section not in self.data["data"]:
             self.write(json.dumps({"postings": []}))
             return
-        postings = self.data[section]
+        postings = self.data["data"][section]
         self.write(json.dumps({"postings": postings}))
 
 
-class UpdateHandler(web.RequestHandler):
-
-    def initialize(self, port, section_server_id):
-        self.port = port
-        self.section_server_id = section_server_id
-
-    @gen.coroutine
-    # def get(self):
-    def get(self, *args, **kwargs):
-        password = self.get_query_argument("p", None)
-        if (password is None) or (password != UPDATE_PASSWORD):
-            return
-        load_section_pickle(self.section_server_id)
+# class UpdateHandler(web.RequestHandler):
+#
+#     def initialize(self, port, section_server_id):
+#         self.port = port
+#         self.section_server_id = section_server_id
+#
+#     @gen.coroutine
+#     # def get(self):
+#     def get(self, *args, **kwargs):
+#         password = self.get_query_argument("p", None)
+#         if (password is None) or (password != UPDATE_PASSWORD):
+#             return
+#         load_section_pickle(self.section_server_id)
 
 
 def load_section_pickle(section_server_id):
@@ -54,10 +67,15 @@ def load_section_pickle(section_server_id):
 def main(port_num, section_server_id):
     section_pickle = load_section_pickle(section_server_id)
 
+    passdata = dict()
+    passdata["data"] = section_pickle
+
+    # print(passdata["data"])
+
     app = web.Application([
         web.url(r"/section", SectionHandler, dict(port=port_num, section_server_id=section_server_id,
-                                                  section_pickle=section_pickle)),
-        web.url(r"/update", UpdateHandler)
+                                                  data=passdata)),
+        # web.url(r"/update", UpdateHandler)
     ])
 
     app.listen(port_num)

@@ -27,4 +27,14 @@ servers['section_server'] = ["http://localhost:%d" % port for port in range(BASE
 servers['document_server'] = ["http://localhost:%d" % port for port in range(BASE_PORT + 1 + SECTION_SERVER_NUM,
                                                                              BASE_PORT + 1 + SECTION_SERVER_NUM + DOCUMENT_SERVER_NUM)]
 
+CRAWLER_DOC_DIRS = dict()
+CRAWLER_DOC_DIRS['NBC'] = "/Crawler/NBC/nbc_crawled_document"
+CRAWLER_DOC_DIRS['NYT'] = "/Crawler/NYT/nyt_crawled_document"
+CRAWLER_DOC_DIRS['FOX'] = "/Crawler/FOX/fox_crawled_document"
+
+CRAWLER_DUMP_DIRS = dict()
+CRAWLER_DUMP_DIRS['NBC'] = "/Crawler/NBC/nbc_crawled_document_dumped"
+CRAWLER_DUMP_DIRS['NYT'] = "/Crawler/NYT/nyt_crawled_document_dumped"
+CRAWLER_DUMP_DIRS['FOX'] = "/Crawler/FOX/fox_crawled_document_dumped"
+
 
