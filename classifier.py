@@ -16,7 +16,6 @@ features_file = DIR + "/features.pkl"
 def my_hash(s):
     return int(hashlib.md5(s).hexdigest()[:8], 16)
 
-
 def encoding(data, features):
     result = []
 
@@ -32,36 +31,42 @@ def encoding(data, features):
         result.append(temp)
     return result
 
-def classify(f_dir):
+def classify(f_dir, source):
 
     model = pkl.load(open(model_file, 'rb'))
     features = pkl.load(open(features_file, 'rb'))
 
     outputs = list()
 
-    files = os.listdir(DIR + "/" + f_dir)
+    files = os.listdir(f_dir)
 
     for f in files:
         output = dict()
         traindata = list()
 
-        with open(DIR + "/" + f_dir + "/" + f) as fin:
+        with open(f_dir + "/" + f) as fin:
             text = json.load(fin)
-            if "source" in text:
+            if source == "NYT":
                 output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
-                output["date"] = unicode_to_ascii(text["created_date"].encode("utf-8"))
+                output["date"] = get_time(unicode_to_ascii(text["created_date"].encode("utf-8")))
                 output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
                 output["source"] = unicode_to_ascii(text["source"].encode("utf-8"))
+            elif source == "FOX":
+                output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
+                output["date"] = get_time(unicode_to_ascii(text["time"].encode("utf-8")))
+                output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
+                output["source"] = source
             else:
                 output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
-                output["date"] = unicode_to_ascii(text["time"].encode("utf-8"))
+                output["date"] = get_time(unicode_to_ascii(text["tile"].encode("utf-8")))
                 output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
-                output["source"] = "FOX"
+                output["source"] = source
             content = tokenize(unicode_to_ascii(text["text"].encode("utf-8")))
             if content is None or len(content) == 0:
                 print("File %s has no text" % f)
                 continue
             traindata.append(content)
+
         X_arr = encoding(traindata, features)
         probs = model.predict_proba(X_arr).tolist()
         Y = np.argmax(probs[0])
@@ -102,10 +107,10 @@ def dump_to_servers(outputs):
 
 
     for output in outputs:
-        print("--------------------------------")
-        print("Title: %s" % output["title"])
-        print("Date: %s" % output["date"])
-        print("Topic: %s" % output["category"])
+        # print("--------------------------------")
+        # print("Title: %s" % output["title"])
+        # print("Date: %s" % output["date"])
+        # print("Topic: %s" % output["category"])
 
         topic = output["category"]
 
@@ -114,12 +119,13 @@ def dump_to_servers(outputs):
         doc_srv_id = doc_id % len(conf["DOC_SERVERS"])
         idx_srv_id = my_hash(topic) % len(conf["SECTION_SERVERS"])
 
-        doc_time = get_time(output["date"])
+        doc_time = output["date"]
 
         if doc_id in doc_srv_data[doc_srv_id]:
-            print("Already in doc server, title: {}".format(output["title"]))
+            # print("Already in doc server, title: {}".format(output["title"]))
+            continue
 
-        print("Dump doc_id: {}, topic: {} to docserver {}, section server {}".format(doc_id, output["category"], doc_srv_id, idx_srv_id))
+        # print("Dump doc_id: {}, topic: {} to docserver {}, section server {}".format(doc_id, output["category"], doc_srv_id, idx_srv_id))
         doc_srv_data[doc_srv_id][doc_id] = output
         if topic not in idx_srv_data[idx_srv_id]:
             idx_srv_data[idx_srv_id][topic] = []
@@ -131,13 +137,17 @@ def dump_to_servers(outputs):
     for i, file_path in enumerate(idx_srv_file_paths):
         pkl.dump(idx_srv_data[i], open(file_path, 'wb'))
 
+def start_classify(file_path, source):
+
+    outputs = classify(file_path, source)
+    dump_to_servers(outputs)
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--file_dir_path", required=True)
+    parser.add_argument("--source")
     args = parser.parse_args()
 
-    outputs = classify(args.file_dir_path)
+    start_classify(args.file_dir_path, args.source)
 
-    dump_to_servers(outputs)

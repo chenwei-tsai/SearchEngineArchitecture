@@ -84,12 +84,13 @@ def main():
                     document = dict()
                     document['title'] = result['title']
                     document['abstract'] = result['abstract']
-                    document['source'] = result['source']
+                    # document['source'] = result['source']
+                    document['source'] = "NYT"
                     document['url'] = result['url']
                     document['item_type'] = result['item_type']
                     document['material_type_facet'] = result['material_type_facet']
                     document['section'] = result['section']
-                    document['created_date'] = result['created_date']
+                    document['time'] = result['created_date']
                     document['published_date'] = result['published_date']
                     document['updated_date'] = result['updated_date']
                     document['text'] = text
