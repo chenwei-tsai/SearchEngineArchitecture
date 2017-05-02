@@ -1,7 +1,11 @@
+{% autoescape None %}
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <!--<meta charset="UTF-8">-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!--<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">-->
+
         <title>News Search Results</title>
         <style>
             /*
@@ -74,7 +78,13 @@
                                     <div style="text-align:left">
                                         <h1>Sections</h1>
                                         <ol class="nobullet">
-                                            <li><a id="sec" href="http://localhost:23456/section?query=Opinion">Opinion</a></li>
+                                            <li><a id="sec" href="http://localhost:{{front_end_port}}/section?s=us">U.S.</a></li>
+                                            <li><a id="sec" href="http://localhost:{{front_end_port}}/section?s=world">World</a></li>
+                                            <li><a id="sec" href="http://localhost:{{front_end_port}}/section?s=opinion">Opinion</a></li>
+                                            <li><a id="sec" href="http://localhost:{{front_end_port}}/section?s=business">Business</a></li>
+                                            <li><a id="sec" href="http://localhost:{{front_end_port}}/section?s=tech">Tech</a></li>
+                                            <li><a id="sec" href="http://localhost:{{front_end_port}}/section?s=sport">Sport</a></li>
+                                            <li><a id="sec" href="http://localhost:{{front_end_port}}/section?s=entertain">Entertain</a></li>
                                         </ol>
                                     </div>
                                 </nav>

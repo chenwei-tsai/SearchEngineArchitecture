@@ -11,9 +11,10 @@ from inventory import servers
 
 
 class Document:
-    def __init__(self, document_id, score):
+    def __init__(self, document_id, score, time):
         self.document_id = document_id
         self.score = score
+        self.time = time
 
 class DocumentResult:
     def __init__(self, url, title, source, time, snippet):
@@ -22,6 +23,7 @@ class DocumentResult:
         self.source = source
         self.time = time
         self.snippet = snippet
+
 
 class MainHandler(tornado.web.RequestHandler):
 
@@ -41,35 +43,31 @@ class SectionHandler(tornado.web.RequestHandler):
         section_servers = servers['section_server']
         document_servers = servers['document_server']
 
-        doc_id_score_tuple_list = list()
+        doc_id_score_time_tuple_list = list()
         for i in range(len(section_servers)):
             query_url = section_servers[i] + "/section?s=" + section
             response = yield http_client.fetch(query_url)
             raw_data = json.loads(response.body.decode('utf-8'))
-            doc_id_score_tuple_list.extend(raw_data["postings"])
+            doc_id_score_time_tuple_list.extend(raw_data["postings"])
 
-        # for document in doc_id_score_tuple_list:
-        #     print(document)
+        # < class 'list'>: [3042457829, [0.9959916585224816, '201704171344']]
 
         document_list = []
-        for element in doc_id_score_tuple_list:
-            document_list.append(Document(element[0], element[1]))
+        for element in doc_id_score_time_tuple_list:
+            document_list.append(Document(element[0], element[1][0], element[1][1]))
 
         sorted_document_list = sorted(document_list, key=operator.attrgetter('score'), reverse=True)
 
-        if len(sorted_document_list) > 10:
-            sorted_document_list = sorted_document_list[0:10]
+        if len(sorted_document_list) > 20:
+            sorted_document_list = sorted_document_list[0:20]
 
         document_results = list()
         for i in range(len(sorted_document_list)):
             doc_id = sorted_document_list[i].document_id
 
-            # todo
             # hash_value = int(hashlib.md5(str(doc_id).encode()).hexdigest()[:8], 16)
-            hash_value = doc_id % DOCUMENT_SERVER_NUM
             # hash_value = hash(str(doc_id))
-            document_server_id = hash_value
-            # document_server_id = 2
+            document_server_id = doc_id % DOCUMENT_SERVER_NUM
 
             request = document_servers[document_server_id] + "/doc?doc_id=" + str(doc_id)
             response = yield http_client.fetch(request)
@@ -87,7 +85,7 @@ class SectionHandler(tornado.web.RequestHandler):
 
         # for detail_document in detail_document_list:
         #     document_results.append(document_result)
-        self.render("HTML/result.html", documents=document_results)
+        self.render("HTML/result.html", front_end_port=FRONT_END_SERVER_PORT, documents=document_results)
         # self.render("HTML/template.html", title="My title", documents=document_results)
 
 
