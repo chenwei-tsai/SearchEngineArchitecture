@@ -1,0 +1,12 @@
+<html>
+   <head>
+      <title>{{ title }}</title>
+   </head>
+   <body>
+     <ul>
+       {% for document in documents %}
+         <li>{{ escape(document) }}</li>
+       {% end %}
+     </ul>
+   </body>
+ </html>
