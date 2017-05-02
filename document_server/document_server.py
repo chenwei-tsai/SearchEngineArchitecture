@@ -48,7 +48,7 @@ class DocHandler(web.RequestHandler):
         if doc_id is None:
             self.write(json.dumps({"results": []}))
             return
-        if doc_id not in self.docs:
+        if doc_id not in self.docs["data"]:
             self.write(json.dumps({"results": []}))
             return
         response = dict()

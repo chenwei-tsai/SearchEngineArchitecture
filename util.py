@@ -85,7 +85,7 @@ DATE_TO_NUM = {'Jan': "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", 
 
 def get_time(time):
 
-    if not 'T' in time:
+    if ',' in time:
         date = time.split(',')[0].strip().split(' ')
         seconds = time.split(',')[1].strip().split(' ')
 
@@ -94,7 +94,7 @@ def get_time(time):
 
         fmt_date = date[2] + DATE_TO_NUM[date[0]] + date[1]
         if seconds[1] == 'pm':
-            fmt_seconds = str(int(second[0].split(':')[0]) + 12) + second[0].split(':')[1]
+            fmt_seconds = str(int(seconds[0].split(':')[0]) + 12) + seconds[0].split(':')[1]
         else:
             fmt_seconds = "".join(seconds[0].split(':'))
         if len(fmt_seconds) == 3:
