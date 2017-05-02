@@ -24,21 +24,21 @@ class DocHandler(web.RequestHandler):
         try:
             doc_id = int(doc_id)
         except ValueError:
-            self.write('illegal argument')
+            self.write({"results": []})
             return
         if doc_id is None:
             self.write({"results": []})
             return
         if doc_id not in self.docs:
-            self.write("doc_id not in this server")
+            self.write({"results": []})
             return
         response = dict()
         response['title'] = self.docs[doc_id]['title']
         response['url'] = self.docs[doc_id]['url']
-        response['date'] = self.docs[doc_id]['date']
+        response['time'] = self.docs[doc_id]['date']
         response['source'] = self.docs[doc_id]['source']
-        document_List = [response]
-        return_map = {"results": document_List}
+        document_list = [response]
+        return_map = {"results": document_list}
         self.write(json.dumps(return_map))
 
 

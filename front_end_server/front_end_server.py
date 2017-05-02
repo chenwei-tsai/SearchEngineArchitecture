@@ -15,6 +15,13 @@ class Document:
         self.document_id = document_id
         self.score = score
 
+class DocumentResult:
+    def __init__(self, url, title, source, time, snippet):
+        self.url = url
+        self.title = title
+        self.source = source
+        self.time = time
+        self.snippet = snippet
 
 class MainHandler(tornado.web.RequestHandler):
 
@@ -53,7 +60,7 @@ class SectionHandler(tornado.web.RequestHandler):
         if len(sorted_document_list) > 10:
             sorted_document_list = sorted_document_list[0:10]
 
-        detail_document_list = []
+        document_results = list()
         for i in range(len(sorted_document_list)):
             doc_id = sorted_document_list[i].document_id
 
@@ -68,28 +75,31 @@ class SectionHandler(tornado.web.RequestHandler):
             response = yield http_client.fetch(request)
             document_map = dict()
             extract_information_from_document_server(document_map, response.body.decode('utf-8'))
-            detail_document_list.append(document_map)
+            document_result = DocumentResult(document_map['url'], document_map['title'], document_map['source'],
+                                             document_map['time'], document_map['snippet'])
+            document_results.append(document_result)
+
 
         # return_map = dict()
         # return_map["results"] = detail_document_list
         # return_map["num_results"] = len(sorted_document_list)
         # self.write(json.dumps(return_map))
 
-        items = list()
-        for detail_document in detail_document_list:
-            items.append(detail_document['url'])
-        self.render("HTML/template.html", title="My title", documents=items)
+        # for detail_document in detail_document_list:
+        #     document_results.append(document_result)
+        self.render("HTML/result.html", documents=document_results)
+        # self.render("HTML/template.html", title="My title", documents=document_results)
 
 
 def extract_information_from_document_server(document_map, string):
-    map = json.loads(string)
-    map = map['results'][0]
+    json_map = json.loads(string)
+    json_map = json_map['results'][0]
     # todo
     document_map['snippet'] = 'This is temp snippet'
-    document_map['title'] = map['title']
-    document_map['url'] = map['url']
-    document_map['source'] = map['source']
-    document_map['date'] = map['date']
+    document_map['title'] = json_map['title']
+    document_map['url'] = json_map['url']
+    document_map['source'] = json_map['source']
+    document_map['time'] = json_map['time']
 
 
 def main(port):
