@@ -10,7 +10,6 @@ from section_server import section_server
 from document_server import document_server
 
 
-
 def main():
 
     # launch indexer

@@ -13,6 +13,8 @@ DOCUMENT_SERVER_NUM = 3
 MAX_PORT = 49152
 MIN_PORT = 10000
 
+UPDATE_PASSWORD = 'ILOVENYU'
+
 BASE_PORT = int(hashlib.md5(getpass.getuser().encode()).hexdigest()[:8], 16) % \
     (MAX_PORT - MIN_PORT) + MIN_PORT
 
