@@ -1,5 +1,5 @@
 (dp1
-I1
+I3810184387
 (dp2
 S'category'
 p3
@@ -7,11 +7,11 @@ S'entertain'
 p4
 sS'title'
 p5
-S"Andy Karl, the Star of 'Groundhog Day,' Is to Perform on Opening Night"
+S'This Friendly Bear Is a Menace to Ice'
 p6
 sS'url'
 p7
-S'https://www.nytimes.com/2017/04/17/theater/andy-karl-groundhog-day-to-perform-on-opening-night.html'
+S'https://www.nytimes.com/2017/04/17/dining/ice-shaver-japanese-bear-moma.html'
 p8
 sS'source'
 p9
@@ -19,102 +19,117 @@ S'The New York Times'
 p10
 sS'score'
 p11
-F0.99599165852248162
+F0.45153769416062489
 sS'date'
 p12
-S'2017-04-17T13:44:10-04:00'
+S'2017-04-17T13:31:18-04:00'
 p13
-ssI4
+ssI2957764453
 (dp14
 g3
-S'sport'
+S'us'
 p15
 sg5
-S'Boston Marathon 2017: Kenyans Sweep the Main Events'
+S"FBI's Awlaki surveillance footage revealed | Fox News"
 p16
 sg7
-S'https://www.nytimes.com/2017/04/17/sports/boston-marathon-2017-kenyans-sweep-the-main-events.html'
+S'http://www.foxnews.com/politics/2017/04/19/fbis-awlaki-surveillance-footage-revealed.html'
 p17
 sg9
-S'The New York Times'
+S'FOX'
 p18
 sg11
-F0.94689653811425034
+F0.99996844467334511
 sg12
-S'2017-04-17T13:34:12-04:00'
+S'2017-04-19T14:16:00.000-04:00'
 p19
-ssI7
+ssI3840301258
 (dp20
 g3
-S'tech'
+S'sport'
 p21
 sg5
-S'Tech Roundup: A Busy Week to Come'
+S'Boston Marathon 2017: Kenyans Sweep the Main Events'
 p22
 sg7
-S'https://www.nytimes.com/2017/04/17/technology/facebook-samsung-new-zealand.html'
+S'https://www.nytimes.com/2017/04/17/sports/boston-marathon-2017-kenyans-sweep-the-main-events.html'
 p23
 sg9
 S'The New York Times'
 p24
 sg11
-F0.99932101425288911
+F0.94689653811425034
 sg12
-S'2017-04-17T12:18:16-04:00'
+S'2017-04-17T12:29:36-04:00'
 p25
-ssI10
+ssI3841575310
 (dp26
 g3
-S'us'
+S'world'
 p27
 sg5
-S'Bitter Fight Behind Him, Justice Gorsuch Starts Day With Relish'
+S'McMaster says US must be prepared for military operations in North Korea | Fox News'
 p28
 sg7
-S'https://www.nytimes.com/2017/04/17/us/politics/justice-neil-gorsuch-supreme-court.html'
+S'http://www.foxnews.com/politics/2017/04/30/mcmaster-says-us-must-be-prepared-for-military-operations-in-north-korea.html'
 p29
 sg9
-S'The New York Times'
+g18
+sg11
+F0.99998354751335172
+sg12
+S'2017-04-30T11:36:00.000-04:00'
 p30
-sg11
-F0.87701036709364955
-sg12
-S'2017-04-17T13:39:01-04:00'
-p31
-ssI13
-(dp32
+ssI3584541970
+(dp31
 g3
-g4
+g27
 sg5
-S'An Atlanta Theater Faces Criticism for Gay Versions of Bible Stories'
+S'Trump invites controversial Philippines leader Duterte to White House | Fox News'
+p32
+sg7
+S'http://www.foxnews.com/politics/2017/04/30/trump-invites-controversial-philippines-leader-duterte-to-white-house.html'
 p33
-sg7
-S'https://www.nytimes.com/2017/04/17/theater/out-front-theater-company-criticism-for-gay-versions-of-bible-the-most-fabulous-story-ever-told.html'
-p34
 sg9
-S'The New York Times'
-p35
+g18
 sg11
-F0.99999324909230614
+F0.9931460518891192
 sg12
-S'2017-04-17T13:48:26-04:00'
-p36
-ssI16
-(dp37
+S'2017-04-30T15:45:00.000-04:00'
+p34
+ssI3493810174
+(dp35
 g3
 g4
 sg5
-S'Red, Ripe and Renegade: Berries That Break All the Rules'
-p38
+S'A Tortilla Favored by Chefs Is Now Available Nationwide'
+p36
 sg7
-S'https://www.nytimes.com/2017/04/17/dining/strawberries-harrys-berries-california.html'
-p39
+S'https://www.nytimes.com/2017/04/17/dining/corn-tortillas-masienda.html'
+p37
 sg9
 S'The New York Times'
-p40
+p38
 sg11
-F0.99999938036588543
+F0.53995963514832035
 sg12
-S'2017-04-17T12:42:41-04:00'
+S'2017-04-17T13:50:18-04:00'
+p39
+ssI147769087
+(dp40
+g3
+g27
+sg5
+S"Bill in Congress would pressure Palestinian gov't to cut off terror-tied payments | Fox News"
 p41
+sg7
+S'http://www.foxnews.com/politics/2017/04/30/bill-in-congress-would-pressure-palestinian-govt-to-cut-off-terror-tied-payments.html'
+p42
+sg9
+g18
+sg11
+F0.9379602163330496
+sg12
+S'2017-04-30T16:58:00.000-04:00'
+p43
 ss.

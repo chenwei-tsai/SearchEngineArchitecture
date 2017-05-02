@@ -1,5 +1,5 @@
-import os, argparse, json, sys
-from util import unicode_to_ascii, tokenize, label_to_category
+import os, argparse, json, sys, hashlib
+from util import unicode_to_ascii, tokenize, label_to_category, get_time
 import numpy as np
 from config import conf
 try:
@@ -9,8 +9,12 @@ except ImportError:
 
 
 DIR = os.getcwd()
+
 model_file = DIR + "/nb-model-02.model"
 features_file = DIR + "/features.pkl"
+
+def my_hash(s):
+    return int(hashlib.md5(s).hexdigest()[:8], 16)
 
 
 def encoding(data, features):
@@ -43,11 +47,16 @@ def classify(f_dir):
 
         with open(DIR + "/" + f_dir + "/" + f) as fin:
             text = json.load(fin)
-            output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
-            output["date"] = unicode_to_ascii(text["created_date"].encode("utf-8"))
-            output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
-            output["source"] = unicode_to_ascii(text["source"].encode("utf-8"))
-            output["date"] = unicode_to_ascii(text["updated_date"].encode("utf-8"))
+            if "source" in text:
+                output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
+                output["date"] = unicode_to_ascii(text["created_date"].encode("utf-8"))
+                output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
+                output["source"] = unicode_to_ascii(text["source"].encode("utf-8"))
+            else:
+                output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
+                output["date"] = unicode_to_ascii(text["time"].encode("utf-8"))
+                output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
+                output["source"] = "FOX"
             content = tokenize(unicode_to_ascii(text["text"].encode("utf-8")))
             if content is None or len(content) == 0:
                 print("File %s has no text" % f)
@@ -65,10 +74,9 @@ def classify(f_dir):
 
 def dump_to_servers(outputs):
 
-    MAX_DOC_ID = 0
 
     num_doc_srvs = len(conf["DOC_SERVERS"])
-    num_idx_srvs = len(conf["INDEX_SERVERS"])
+    num_idx_srvs = len(conf["SECTION_SERVERS"])
     doc_srv_data = list(dict())
     idx_srv_data = list(dict())
     doc_srv_file_paths = list()
@@ -84,7 +92,7 @@ def dump_to_servers(outputs):
         doc_srv_data.append(docs)
 
     for i in range(0, num_idx_srvs):
-        srv_dump_file = os.getcwd() + "/" + conf["INDEX_SRV_DIR"] + "/index-srv-%d.dump" % i
+        srv_dump_file = os.getcwd() + "/" + conf["SECTION_SRV_DIR"] + "/section-srv-%d.dump" % i
         idx_srv_file_paths.append(srv_dump_file)
         if os.path.exists(srv_dump_file):
             docs = pkl.load(open(srv_dump_file, "rb"))
@@ -101,16 +109,21 @@ def dump_to_servers(outputs):
 
         topic = output["category"]
 
-        doc_id = MAX_DOC_ID + 1
-        MAX_DOC_ID = MAX_DOC_ID + 1
+        # doc_id = MAX_DOC_ID + 1
+        doc_id = my_hash(output['url'])
         doc_srv_id = doc_id % len(conf["DOC_SERVERS"])
-        idx_srv_id = hash(topic) % len(conf["INDEX_SERVERS"])
+        idx_srv_id = my_hash(topic) % len(conf["SECTION_SERVERS"])
 
-        print("Dump doc_id: {}, topic: {} to docserver {}, index server {}".format(doc_id, output["category"], doc_srv_id, idx_srv_id))
+        doc_time = get_time(output["date"])
+
+        if doc_id in doc_srv_data[doc_srv_id]:
+            print("Already in doc server, title: {}".format(output["title"]))
+
+        print("Dump doc_id: {}, topic: {} to docserver {}, section server {}".format(doc_id, output["category"], doc_srv_id, idx_srv_id))
         doc_srv_data[doc_srv_id][doc_id] = output
         if topic not in idx_srv_data[idx_srv_id]:
             idx_srv_data[idx_srv_id][topic] = []
-        idx_srv_data[idx_srv_id][topic].append((doc_id, output["score"]))
+        idx_srv_data[idx_srv_id][topic].append((doc_id, (output["score"], doc_time)))
 
     for i, file_path in enumerate(doc_srv_file_paths):
         pkl.dump(doc_srv_data[i], open(file_path, 'wb'))
@@ -123,7 +136,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--file_dir_path", required=True)
-
     args = parser.parse_args()
 
     outputs = classify(args.file_dir_path)
