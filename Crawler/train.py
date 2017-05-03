@@ -32,7 +32,7 @@ def naive_bayes(X_train, Y_train, X_test, Y_test):
 
     if SAVE_MODEL:
         DIR = os.getcwd()
-        model_file = DIR + "/../docserver/nb-model-03.model"
+        model_file = DIR + "/../model/nb-model-03.model"
         pkl.dump(model, open(model_file, 'wb'))
 
     probs = model.predict_proba(X_train).tolist()
