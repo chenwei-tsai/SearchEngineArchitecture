@@ -1,17 +1,19 @@
 import os, argparse, json, sys, hashlib, re
+DIR = os.getcwd()
+sys.path.append(DIR + "/../")
 from util import unicode_to_ascii, tokenize, label_to_category, get_time
 import numpy as np
-from config import conf
+# from config import conf
+from inventory import MODEL_DIR, DOC_SRV_DIR, SEC_SRV_DIR, servers
 # try:
 #     import cPickle as pkl
 # except ImportError:
 import pickle as pkl
 
 
-DIR = os.getcwd()
 
-model_file = DIR + "/nb-model-02.model"
-features_file = DIR + "/features.pkl"
+model_file = MODEL_DIR + "/nb-model-02.model"
+features_file = MODEL_DIR + "/features.pkl"
 
 def my_hash(s):
     return int(hashlib.md5(s).hexdigest()[:8], 16)
@@ -92,15 +94,17 @@ def classify(f_dir):
 def dump_to_servers(outputs):
 
 
-    num_doc_srvs = len(conf["DOC_SERVERS"])
-    num_idx_srvs = len(conf["SECTION_SERVERS"])
+    # num_doc_srvs = len(conf["DOC_SERVERS"])
+    num_doc_srvs = len(servers["document_server"])
+    # num_idx_srvs = len(conf["SECTION_SERVERS"])
+    num_idx_srvs = len(servers["section_server"])
     doc_srv_data = list(dict())
     idx_srv_data = list(dict())
     doc_srv_file_paths = list()
     idx_srv_file_paths = list()
 
     for i in range(0, num_doc_srvs):
-        srv_dump_file = os.getcwd() + "/" + conf["DOC_SRV_DIR"] + "/doc-srv-%d.dump" % i
+        srv_dump_file = DOC_SRV_DIR + "/doc_dumps/doc-srv-%d.dump" % i
         doc_srv_file_paths.append(srv_dump_file)
         if os.path.exists(srv_dump_file):
             docs = pkl.load(open(srv_dump_file, "rb"))
@@ -109,7 +113,7 @@ def dump_to_servers(outputs):
         doc_srv_data.append(docs)
 
     for i in range(0, num_idx_srvs):
-        srv_dump_file = os.getcwd() + "/" + conf["SECTION_SRV_DIR"] + "/section-srv-%d.dump" % i
+        srv_dump_file = SEC_SRV_DIR + "/section_dumps/section-srv-%d.dump" % i
         idx_srv_file_paths.append(srv_dump_file)
         if os.path.exists(srv_dump_file):
             docs = pkl.load(open(srv_dump_file, "rb"))
@@ -128,8 +132,8 @@ def dump_to_servers(outputs):
 
         # doc_id = MAX_DOC_ID + 1
         doc_id = my_hash(output['url'])
-        doc_srv_id = doc_id % len(conf["DOC_SERVERS"])
-        idx_srv_id = my_hash(topic) % len(conf["SECTION_SERVERS"])
+        doc_srv_id = doc_id % len(servers['document_server'])
+        idx_srv_id = my_hash(topic) % len(servers['section_server'])
 
         doc_time = output["date"]
 

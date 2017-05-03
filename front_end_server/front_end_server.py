@@ -60,7 +60,8 @@ class SectionHandler(tornado.web.RequestHandler):
         for element in doc_id_score_time_tuple_list:
             document_list.append(Document(element[0], element[1][0], element[1][1]))
 
-        sorted_document_list = sorted(document_list, key=operator.attrgetter('datatime'), reverse=True)
+        sorted_document_list = sorted(document_list, key=operator.attrgetter('datetime'), reverse=True)
+
 
         if len(sorted_document_list) > 20:
             sorted_document_list = sorted_document_list[0:20]

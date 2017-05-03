@@ -1,5 +1,6 @@
 import hashlib
 import getpass
+import os
 
 IS_DEBUG = True
 
@@ -12,6 +13,10 @@ DOCUMENT_SERVER_NUM = 3
 
 MAX_PORT = 49152
 MIN_PORT = 10000
+
+MODEL_DIR = os.getcwd() + "/model"
+DOC_SRV_DIR = os.getcwd() + "/document_server"
+SEC_SRV_DIR = os.getcwd() + "/section_server"
 
 UPDATE_PASSWORD = 'ILOVENYU'
 

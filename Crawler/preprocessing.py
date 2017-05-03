@@ -1,12 +1,13 @@
 import os
 import json
 import sys
+DIR = os.getcwd()
+sys.path.append(DIR+"/../")
 import pickle
 import numpy as np
 from util import unicode_to_ascii, tokenize, category_to_label, label_to_category
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-DIR = os.getcwd()
 
 TR_DOC_DIR = DIR + '/crawled_document/training'
 tr_list_files = os.listdir(TR_DOC_DIR)
