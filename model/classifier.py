@@ -46,6 +46,9 @@ def classify(f_dir):
         output = dict()
         traindata = list()
 
+        if not f.endswith(".txt"):
+            continue
+
         with open(f_dir + "/" + f) as fin:
             text = json.load(fin)
             # if source == "NYT":

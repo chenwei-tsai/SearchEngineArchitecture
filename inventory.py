@@ -42,9 +42,9 @@ CRAWLER_DOC_DIRS['NBC'] = "/Crawler/NBC/nbc_crawled_document"
 CRAWLER_DOC_DIRS['NYT'] = "/Crawler/NYT/nyt_crawled_document"
 CRAWLER_DOC_DIRS['FOX'] = "/Crawler/FOX/fox_crawled_document"
 
-FOX_DOC_DIR = os.getcwd() + "/Crawler/FOX/fox_crawled_document"
-NYT_DOC_DIR = os.getcwd() + "/Crawler/NYT/nyt_crawled_document"
-NBC_DOC_DIR = os.getcwd() + "/Crawler/NBC/nbc_crawled_document"
+FOX_DOC_DIR = os.getcwd() + "/Crawler/FOX"
+NYT_DOC_DIR = os.getcwd() + "/Crawler/NYT"
+NBC_DOC_DIR = os.getcwd() + "/Crawler/NBC"
 
 CRAWLER_DUMP_DIRS = dict()
 CRAWLER_DUMP_DIRS['NBC'] = "/Crawler/NBC/nbc_crawled_document_dumped"

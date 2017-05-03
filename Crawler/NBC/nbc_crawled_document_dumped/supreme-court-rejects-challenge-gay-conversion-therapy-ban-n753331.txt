@@ -1,1 +1,1 @@
-{"url": "http://www.nbcnews.com/feature/nbc-out/supreme-court-rejects-challenge-gay-conversion-therapy-ban-n753331", "title": "Supreme Court Rejects Challenge to 'Gay Conversion' Therapy Ban - NBC News", "time": "May 1 2017, 12:58 pm ET", "source": "NBC", "text": ""}
+{"url": "http://www.nbcnews.com/feature/nbc-out/supreme-court-rejects-challenge-gay-conversion-therapy-ban-n753331", "text": "", "time": "May 1 2017, 12:58 pm ET", "source": "NBC", "title": "Supreme Court Rejects Challenge to 'Gay Conversion' Therapy Ban - NBC News"}
