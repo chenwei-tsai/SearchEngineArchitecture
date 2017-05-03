@@ -4,8 +4,8 @@ import os
 
 IS_DEBUG = True
 
-DEBUG_ADDRESS = 'http://localhost'
-DEPLOY_SERVER = 'http://newyorktimes.eastus.cloudapp.azure.com/'
+BASE_URL = "http://linserv1.cims.nyu.edu"
+# BASE_URL = "http://localhost"
 
 FRONT_EDN_SERVER_NUM = 1
 SECTION_SERVER_NUM = 3
@@ -24,9 +24,6 @@ BASE_PORT = int(hashlib.md5(getpass.getuser().encode()).hexdigest()[:8], 16) % \
     (MAX_PORT - MIN_PORT) + MIN_PORT
 
 FRONT_END_SERVER_PORT = BASE_PORT
-
-BASE_URL = "http://linserv1.cims.nyu.edu"
-# BASE_URL = "http://localhost"
 
 servers = dict()
 
