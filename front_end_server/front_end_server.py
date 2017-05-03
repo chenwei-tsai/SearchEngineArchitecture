@@ -76,6 +76,7 @@ class SectionHandler(tornado.web.RequestHandler):
             response = yield http_client.fetch(request)
             document_map = dict()
             extract_information_from_document_server(document_map, response.body.decode('utf-8'))
+            print("document_map['time'] = {}".format(document_map['time']))
             document_datetime_object = datetime.datetime.strptime(document_map['time'], '%Y%m%d%H%M')
             time_diff = datetime_diff(document_datetime_object)
 

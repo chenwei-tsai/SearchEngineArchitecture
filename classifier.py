@@ -2,10 +2,10 @@ import os, argparse, json, sys, hashlib, re
 from util import unicode_to_ascii, tokenize, label_to_category, get_time
 import numpy as np
 from config import conf
-try:
-    import cPickle as pkl
-except ImportError:
-    import pickle as pkl
+# try:
+#     import cPickle as pkl
+# except ImportError:
+import pickle as pkl
 
 
 DIR = os.getcwd()
@@ -61,17 +61,22 @@ def classify(f_dir):
             #     output["date"] = get_time(unicode_to_ascii(text["tile"].encode("utf-8")))
             #     output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
             #     output["source"] = source
-            raw_text = unicode_to_ascii(text["text"].encode("utf-8"))
-            indexes = [i.start() for i in re.finditer(r"\.", raw_text)]
-            if len(indexes) < 2:
-                stop = len(indexes)
-            else:
-                stop = 2
-            output["snippet"] = raw_text[0:indexes[stop]+1]
             content = tokenize(unicode_to_ascii(text["text"].encode("utf-8")))
             if content is None or len(content) == 0:
                 print("File %s has no text" % f)
                 continue
+
+            raw_text = unicode_to_ascii(text["text"].encode("utf-8"))
+            indexes = [i.start() for i in re.finditer(r"\.", raw_text)]
+            if len(indexes) == 0:
+                continue
+
+            if len(indexes) < 3:
+                stop = len(indexes)-1
+            else:
+                stop = 3
+            output["snippet"] = raw_text[0:indexes[stop]+1]
+
             traindata.append(content)
 
         X_arr = encoding(traindata, features)

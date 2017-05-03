@@ -66,7 +66,7 @@ def main():
     print("Update ended")
     try:
         print("Sleep..........................")
-        time.sleep(60 * 5)
+        time.sleep(60 * 2)
     except:
         print('update sleep interrupted')
 
