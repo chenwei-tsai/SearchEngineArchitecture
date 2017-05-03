@@ -25,11 +25,15 @@ BASE_PORT = int(hashlib.md5(getpass.getuser().encode()).hexdigest()[:8], 16) % \
 
 FRONT_END_SERVER_PORT = BASE_PORT
 
+BASE_URL = "http://linserv1.cims.nyu.edu"
+# BASE_URL = "http://localhost"
+
 servers = dict()
-servers['front_end'] = "http://localhost:%d" % FRONT_END_SERVER_PORT
-servers['section_server'] = ["http://localhost:%d" % port for port in range(BASE_PORT + 1,
+
+servers['front_end'] = "%s:%d" % (BASE_URL, FRONT_END_SERVER_PORT)
+servers['section_server'] = ["%s:%d" % (BASE_URL, port) for port in range(BASE_PORT + 1, 
                                                                             BASE_PORT + 1 + SECTION_SERVER_NUM)]
-servers['document_server'] = ["http://localhost:%d" % port for port in range(BASE_PORT + 1 + SECTION_SERVER_NUM,
+servers['document_server'] = ["%s:%d" % (BASE_URL, port) for port in range(BASE_PORT + 1 + SECTION_SERVER_NUM, 
                                                                              BASE_PORT + 1 + SECTION_SERVER_NUM + DOCUMENT_SERVER_NUM)]
 
 CRAWLER_DOC_DIRS = dict()

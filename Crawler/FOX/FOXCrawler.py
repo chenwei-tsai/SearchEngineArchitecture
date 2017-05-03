@@ -2,7 +2,7 @@ from tornado.ioloop import IOLoop
 from tornado import httpclient
 from tornado import gen
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
+# from urllib.parse import urlparse
 
 import json
 import os

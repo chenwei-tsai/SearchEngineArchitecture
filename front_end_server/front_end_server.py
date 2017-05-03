@@ -8,7 +8,7 @@ import hashlib
 
 from inventory import DOCUMENT_SERVER_NUM
 from inventory import FRONT_END_SERVER_PORT
-from inventory import servers
+from inventory import servers, BASE_URL
 from util import datetime_diff
 
 
@@ -33,7 +33,7 @@ class MainHandler(tornado.web.RequestHandler):
 
     @gen.coroutine
     def get(self):
-        self.render("HTML/main.html", front_end_port=str(FRONT_END_SERVER_PORT))
+        self.render("HTML/main.html", host=BASE_URL, front_end_port=str(FRONT_END_SERVER_PORT))
 
 
 class SectionHandler(tornado.web.RequestHandler):
@@ -95,7 +95,7 @@ class SectionHandler(tornado.web.RequestHandler):
 
         # for detail_document in detail_document_list:
         #     document_results.append(document_result)
-        self.render("HTML/result.html", front_end_port=FRONT_END_SERVER_PORT, documents=document_results)
+        self.render("HTML/result.html", host=BASE_URL, front_end_port=FRONT_END_SERVER_PORT, documents=document_results),
         # self.render("HTML/template.html", title="My title", documents=document_results)
 
 
