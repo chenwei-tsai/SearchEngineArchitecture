@@ -17,6 +17,8 @@ class Document:
         self.document_id = document_id
         self.score = score
         self.time = time
+        self.datetime = datetime.datetime.strptime(time, '%Y%m%d%H%M')
+
 
 class DocumentResult:
     def __init__(self, url, title, source, time, snippet):
@@ -58,7 +60,7 @@ class SectionHandler(tornado.web.RequestHandler):
         for element in doc_id_score_time_tuple_list:
             document_list.append(Document(element[0], element[1][0], element[1][1]))
 
-        sorted_document_list = sorted(document_list, key=operator.attrgetter('score'), reverse=True)
+        sorted_document_list = sorted(document_list, key=operator.attrgetter('datatime'), reverse=True)
 
         if len(sorted_document_list) > 20:
             sorted_document_list = sorted_document_list[0:20]
