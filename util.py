@@ -6,7 +6,11 @@ def datetime_diff(datetime_object):
     now_object = datetime.datetime.now()
     delta = now_object - datetime_object
     if delta.days < 1:
-        return str(int(delta.seconds / 60)) + ' mins ago'
+        minutes = int(delta.seconds / 60)
+        if minutes < 60:
+            return str(int(delta.seconds / 60)) + ' mins ago'
+        else:
+            return str(int(minutes / 60)) + ' hours ago'
     else:
         return str(delta.days) + ' days ago'
 
