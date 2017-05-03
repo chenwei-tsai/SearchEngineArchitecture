@@ -55,13 +55,11 @@ class SectionHandler(tornado.web.RequestHandler):
             doc_id_score_time_tuple_list.extend(raw_data["postings"])
 
         # < class 'list'>: [3042457829, [0.9959916585224816, '201704171344']]
-
         document_list = []
         for element in doc_id_score_time_tuple_list:
             document_list.append(Document(element[0], element[1][0], element[1][1]))
 
         sorted_document_list = sorted(document_list, key=operator.attrgetter('datetime'), reverse=True)
-
 
         if len(sorted_document_list) > 20:
             sorted_document_list = sorted_document_list[0:20]
@@ -69,10 +67,6 @@ class SectionHandler(tornado.web.RequestHandler):
         document_results = list()
         for i in range(len(sorted_document_list)):
             doc_id = sorted_document_list[i].document_id
-            # print("doc id {}".format(doc_id))
-
-            # hash_value = int(hashlib.md5(str(doc_id).encode()).hexdigest()[:8], 16)
-            # hash_value = hash(str(doc_id))
             document_server_id = doc_id % DOCUMENT_SERVER_NUM
 
             request = document_servers[document_server_id] + "/doc?doc_id=" + str(doc_id)
@@ -87,24 +81,12 @@ class SectionHandler(tornado.web.RequestHandler):
                                              time_diff, document_map['snippet'])
             document_results.append(document_result)
 
-
-        # return_map = dict()
-        # return_map["results"] = detail_document_list
-        # return_map["num_results"] = len(sorted_document_list)
-        # self.write(json.dumps(return_map))
-
-        # for detail_document in detail_document_list:
-        #     document_results.append(document_result)
         self.render("HTML/result.html", host=BASE_URL, front_end_port=FRONT_END_SERVER_PORT, documents=document_results),
-        # self.render("HTML/template.html", title="My title", documents=document_results)
 
 
 def extract_information_from_document_server(document_map, string):
     json_map = json.loads(string)
-    # print(json_map)
     json_map = json_map['results'][0]
-    # todo
-    # document_map['snippet'] = 'This is temp snippet'
     document_map['snippet'] = json_map['snippet']
     document_map['title'] = json_map['title']
     document_map['url'] = json_map['url']
