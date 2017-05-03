@@ -1,4 +1,15 @@
-import string, re
+import string
+import re
+import datetime
+
+def datetime_diff(datetime_object):
+    now_object = datetime.datetime.now()
+    delta = now_object - datetime_object
+    if delta.days < 1:
+        return str(int(delta.seconds / 60)) + ' mins ago'
+    else:
+        return str(delta.days) + ' days ago'
+
 
 def unicode_to_ascii(text):
     TEXT = (text.
