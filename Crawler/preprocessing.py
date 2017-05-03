@@ -165,9 +165,9 @@ if __name__ == "__main__":
         scores = [pair for pair in zip(range(0, len(l)), l) if pair[1] > 0]
         scores = sorted(scores, key = lambda x : x[1], reverse=True)
 
-        log_file = LOG_DIR + '/' + c + "_tfidf_dist.pkl"
-        outfile = open(log_file, 'wb')
-        pickle.dump((scores, feature_names), outfile)
+        # log_file = LOG_DIR + '/' + c + "_tfidf_dist.pkl"
+        # outfile = open(log_file, 'wb')
+        # pickle.dump((scores, feature_names), outfile)
 
         for word, score in [(feature_names[i], s) for (i, s) in scores[:120]]:
             # if c == "opinion":
@@ -180,16 +180,16 @@ if __name__ == "__main__":
 
     print("Feature set: {}".format(len(feature_set)))
 
-    trdata_file = DIR + '/' + 'trdata.pkl'
-    tedata_file = DIR + '/' + 'tedata.pkl'
-    if not os.path.exists(trdata_file):
-        pickle.dump((trdata, trlabel), open(trdata_file, 'wb'))
-    if not os.path.exists(tedata_file):
-        pickle.dump((tedata, telabel), open(tedata_file, 'wb'))
+    # trdata_file = DIR + '/' + 'trdata.pkl'
+    # tedata_file = DIR + '/' + 'tedata.pkl'
+    # if not os.path.exists(trdata_file):
+    #     pickle.dump((trdata, trlabel), open(trdata_file, 'wb'))
+    # if not os.path.exists(tedata_file):
+    #     pickle.dump((tedata, telabel), open(tedata_file, 'wb'))
 
 
-    feature_file = DIR + '/' + 'features.pkl'
-    pickle.dump(feature_set, open(feature_file, 'wb'))
+    # feature_file = DIR + '/' + 'features.pkl'
+    # pickle.dump(feature_set, open(feature_file, 'wb'))
 
     # encoding(trdata[200], trlabel[200], feature_set)
 

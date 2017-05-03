@@ -2,7 +2,9 @@ import pickle as pkl
 from sklearn.naive_bayes import MultinomialNB, GaussianNB, BernoulliNB
 from sklearn import svm
 import numpy as np
-import os
+import os, sys
+sys.path.append(os.getcwd() + "/../")
+from util import label_to_category
 
 SAVE_MODEL = False
 
@@ -38,13 +40,22 @@ def naive_bayes(X_train, Y_train, X_test, Y_test):
     probs = model.predict_proba(X_train).tolist()
 
     err = 0.0
+    err_by_class = dict()
     for i, prob in enumerate(probs):
+        cls = label_to_category(Y_train[i])
+        if cls not in err_by_class:
+            err_by_class[cls] = {}
+            err_by_class[cls]['err'] = 0.0
+            err_by_class[cls]['count'] = 0.0
         Y_pred = np.argmax(prob)
-        # print "Label:{}, Predict:{}".format(Y_train[i], Y_pred)
+        err_by_class[cls]['count'] = err_by_class[cls]['count'] + 1
         if Y_train[i] != Y_pred:
             err = err + 1
+            err_by_class[cls]['err'] = err_by_class[cls]['err'] + 1
 
     print("Training err: %.4f" % (err/len(X_train)))
+    for cls in err_by_class:
+        print("Class %s, all: %f, err: %f, test error: %.4f" % (cls, err_by_class[cls]['count'], err_by_class[cls]['err'], err_by_class[cls]['err']/err_by_class[cls]['count']))
 
 
     test_probs = model.predict_proba(X_test).tolist()
@@ -55,6 +66,7 @@ def naive_bayes(X_train, Y_train, X_test, Y_test):
         # print "Label:{}, Predict:{}".format(Y_test[i], Y_pred)
         if Y_test[i] != Y_pred:
             err = err + 1
+
 
     print("Testing error: %.4f" % (err/len(X_test)))
 
@@ -84,9 +96,9 @@ def linear_svm(X_train, Y_train, X_test, Y_test):
     print("Testing err: %.4f" % (err/len(X_test)))
 
 if __name__ == "__main__":
-    trdata_file = 'trdata.pkl'
-    tedata_file = 'tedata.pkl'
-    features_file = 'features.pkl'
+    trdata_file = './dataset/trdata.pkl'
+    tedata_file = './dataset/tedata.pkl'
+    features_file = './dataset/features.pkl'
 
     print("-------------Read data--------------")
     trdata = pkl.load(open(trdata_file))
@@ -100,7 +112,9 @@ if __name__ == "__main__":
     assert(len(tr_data) == len(tr_labels))
     assert(len(te_data) == len(te_labels))
 
+    print("Feature size: {}".format(len(features)))
     print("Training data size: {}".format(len(tr_data)))
+    print("Test data size: {}".format(len(te_data)))
     X_train = encoding(tr_data, features)
     Y_train = np.array(tr_labels)
 
@@ -111,5 +125,5 @@ if __name__ == "__main__":
     assert(len(X_test) == len(Y_test))
 
     naive_bayes(X_train, Y_train, X_test, Y_test)
-    linear_svm(X_train, Y_train, X_test, Y_test)
+    # linear_svm(X_train, Y_train, X_test, Y_test)
 

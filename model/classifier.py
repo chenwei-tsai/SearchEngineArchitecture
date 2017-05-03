@@ -76,7 +76,7 @@ def classify(f_dir):
             if len(indexes) == 0:
                 continue
 
-            if len(indexes) < 3:
+            if len(indexes) <= 3:
                 stop = len(indexes)-1
             else:
                 stop = 3
