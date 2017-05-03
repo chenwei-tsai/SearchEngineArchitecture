@@ -1,4 +1,4 @@
-import os, argparse, json, sys, hashlib
+import os, argparse, json, sys, hashlib, re
 from util import unicode_to_ascii, tokenize, label_to_category, get_time
 import numpy as np
 from config import conf
@@ -31,7 +31,7 @@ def encoding(data, features):
         result.append(temp)
     return result
 
-def classify(f_dir, source):
+def classify(f_dir):
 
     model = pkl.load(open(model_file, 'rb'))
     features = pkl.load(open(features_file, 'rb'))
@@ -46,21 +46,28 @@ def classify(f_dir, source):
 
         with open(f_dir + "/" + f) as fin:
             text = json.load(fin)
-            if source == "NYT":
-                output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
-                output["date"] = get_time(unicode_to_ascii(text["created_date"].encode("utf-8")))
-                output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
-                output["source"] = unicode_to_ascii(text["source"].encode("utf-8"))
-            elif source == "FOX":
-                output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
-                output["date"] = get_time(unicode_to_ascii(text["time"].encode("utf-8")))
-                output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
-                output["source"] = source
+            # if source == "NYT":
+            output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
+            output["date"] = get_time(unicode_to_ascii(text["time"].encode("utf-8")))
+            output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
+            output["source"] = unicode_to_ascii(text["source"].encode("utf-8"))
+            # elif source == "FOX":
+            #     output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
+            #     output["date"] = get_time(unicode_to_ascii(text["time"].encode("utf-8")))
+            #     output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
+            #     output["source"] = source
+            # else:
+            #     output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
+            #     output["date"] = get_time(unicode_to_ascii(text["tile"].encode("utf-8")))
+            #     output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
+            #     output["source"] = source
+            raw_text = unicode_to_ascii(text["text"].encode("utf-8"))
+            indexes = [i.start() for i in re.finditer(r"\.", raw_text)]
+            if len(indexes) < 2:
+                stop = len(indexes)
             else:
-                output["title"] = unicode_to_ascii(text["title"].encode("utf-8"))
-                output["date"] = get_time(unicode_to_ascii(text["tile"].encode("utf-8")))
-                output["url"] = unicode_to_ascii(text["url"].encode("utf-8"))
-                output["source"] = source
+                stop = 2
+            output["snippet"] = raw_text[0:indexes[stop]+1]
             content = tokenize(unicode_to_ascii(text["text"].encode("utf-8")))
             if content is None or len(content) == 0:
                 print("File %s has no text" % f)
@@ -137,17 +144,16 @@ def dump_to_servers(outputs):
     for i, file_path in enumerate(idx_srv_file_paths):
         pkl.dump(idx_srv_data[i], open(file_path, 'wb'))
 
-def start_classify(file_path, source):
+def start_classify(file_path):
 
-    outputs = classify(file_path, source)
+    outputs = classify(file_path)
     dump_to_servers(outputs)
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--file_dir_path", required=True)
-    parser.add_argument("--source")
     args = parser.parse_args()
 
-    start_classify(args.file_dir_path, args.source)
+    start_classify(args.file_dir_path)
 

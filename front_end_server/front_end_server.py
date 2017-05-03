@@ -97,7 +97,8 @@ def extract_information_from_document_server(document_map, string):
     # print(json_map)
     json_map = json_map['results'][0]
     # todo
-    document_map['snippet'] = 'This is temp snippet'
+    # document_map['snippet'] = 'This is temp snippet'
+    document_map['snippet'] = json_map['snippet']
     document_map['title'] = json_map['title']
     document_map['url'] = json_map['url']
     document_map['source'] = json_map['source']
