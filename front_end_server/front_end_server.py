@@ -3,11 +3,13 @@ from tornado.httpclient import AsyncHTTPClient
 from tornado import gen
 import json
 import operator
+import datetime
 import hashlib
 
 from inventory import DOCUMENT_SERVER_NUM
 from inventory import FRONT_END_SERVER_PORT
 from inventory import servers
+from util import datetime_diff
 
 
 class Document:
@@ -74,8 +76,11 @@ class SectionHandler(tornado.web.RequestHandler):
             response = yield http_client.fetch(request)
             document_map = dict()
             extract_information_from_document_server(document_map, response.body.decode('utf-8'))
+            document_datetime_object = datetime.datetime.strptime(document_map['time'], '%Y%m%d%H%M')
+            time_diff = datetime_diff(document_datetime_object)
+
             document_result = DocumentResult(document_map['url'], document_map['title'], document_map['source'],
-                                             document_map['time'], document_map['snippet'])
+                                             time_diff, document_map['snippet'])
             document_results.append(document_result)
 
 
