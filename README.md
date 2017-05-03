@@ -13,11 +13,11 @@ Since we use some python2 sklearn packages, please run the codes in linux machin
 
 Please run below codes in the root directory of SearchEngineArchitecture:
 
-`python start_web_server.py`
-`python FOXCrawler.py`
-`python NBCCrawler.py`
-`python NYTCrawler.py`
-`python update_servers.py`
+* `python start_web_server.py`
+* `python FOXCrawler.py`
+* `python NBCCrawler.py`
+* `python NYTCrawler.py`
+* `python update_servers.py`
 
 ## How to test the program:
 
