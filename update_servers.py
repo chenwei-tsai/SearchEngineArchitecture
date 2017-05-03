@@ -1,4 +1,4 @@
-import os, json, sys
+import os, json, sys, time
 from tornado import ioloop, httpclient, gen
 from inventory import CRAWLER_DOC_DIRS, CRAWLER_DUMP_DIRS, servers, UPDATE_PASSWORD
 from classifier import start_classify
@@ -26,7 +26,8 @@ def main():
 
         isUpdate = True
         # dump new collected docs to servers
-        start_classify(doc_dir, source)
+        # start_classify(doc_dir, source)
+        start_classify(doc_dir)
 
         # Clean dumped data
         doc_dump_dir = DIR + CRAWLER_DUMP_DIRS[source]
@@ -64,6 +65,7 @@ def main():
 
     print("Update ended")
     try:
+        print("Sleep..........................")
         time.sleep(60 * 5)
     except:
         print('update sleep interrupted')

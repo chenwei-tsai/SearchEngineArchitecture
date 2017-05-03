@@ -56,6 +56,7 @@ class DocHandler(web.RequestHandler):
         response['url'] = self.docs["data"][doc_id]['url']
         response['time'] = self.docs["data"][doc_id]['date']
         response['source'] = self.docs["data"][doc_id]['source']
+        response['snippet'] = self.docs['data'][doc_id]['snippet']
         document_list = [response]
         # document_list = []
         return_map = {"results": document_list}
