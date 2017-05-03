@@ -105,7 +105,10 @@ def get_time(time):
 
         fmt_date = date[2] + DATE_TO_NUM[date[0]] + date[1]
         if seconds[1] == 'pm':
-            fmt_seconds = str(int(seconds[0].split(':')[0]) + 12) + seconds[0].split(':')[1]
+            if int(seconds[0].split(':')[0]) == 12:
+                fmt_seconds = str(int(seconds[0].split(':')[0])) + seconds[0].split(':')[1]
+            else:
+                fmt_seconds = str(int(seconds[0].split(':')[0]) + 12) + seconds[0].split(':')[1]
         else:
             fmt_seconds = "".join(seconds[0].split(':'))
         if len(fmt_seconds) == 3:

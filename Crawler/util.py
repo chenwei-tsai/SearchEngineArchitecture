@@ -1,4 +1,15 @@
-import string, re
+import string
+import re
+import datetime
+
+def datetime_diff(datetime_object):
+    now_object = datetime.datetime.now()
+    delta = now_object - datetime_object
+    if delta.days < 1:
+        return str(int(delta.seconds / 60)) + ' mins ago'
+    else:
+        return str(delta.days) + ' days ago'
+
 
 def unicode_to_ascii(text):
     TEXT = (text.
@@ -94,7 +105,10 @@ def get_time(time):
 
         fmt_date = date[2] + DATE_TO_NUM[date[0]] + date[1]
         if seconds[1] == 'pm':
-            fmt_seconds = str(int(seconds[0].split(':')[0]) + 12) + seconds[0].split(':')[1]
+            if int(seconds[0].split(':')[0]) == 12:
+                fmt_seconds = str(int(seconds[0].split(':')[0])) + seconds[0].split(':')[1]
+            else:
+                fmt_seconds = str(int(seconds[0].split(':')[0]) + 12) + seconds[0].split(':')[1]
         else:
             fmt_seconds = "".join(seconds[0].split(':'))
         if len(fmt_seconds) == 3:
