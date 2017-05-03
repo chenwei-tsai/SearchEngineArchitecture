@@ -25,6 +25,5 @@ The program is deployed at
 
 http://linserv1.cims.nyu.edu:27599/
 
-But somehow the NYU linserv2 sometimes will kill a run program if the the session is running out of time.
-In this case please launch the program again
+But somehow the NYU linserv1 sometimes will kill a run program if the session is running out of time. In this case please launch the program again by typing above commands.
 
