@@ -3,11 +3,15 @@ from tornado import httpclient
 from tornado import gen
 from bs4 import BeautifulSoup
 import json
-import os
+import os, sys
+# DIR = os.getcwd()
+# sys.path.append(DIR + "/../../")
+
+from inventory import NBC_DOC_DIR
 import pickle
 import time
 
-crawled_document_set_file = 'nbc_crawled_document_set.pickle'
+crawled_document_set_file = NBC_DOC_DIR + '/nbc_crawled_document_set.pickle'
 
 @gen.coroutine
 def get_page_links(url_set, url, layer):
@@ -108,7 +112,7 @@ def fetch_document(url, crawled_document_set):
             document['source'] = "NBC"
             file_name = url.split('/')[-1].split('.')[0]
 
-            folder = 'nbc_crawled_document'
+            folder = NBC_DOC_DIR + '/nbc_crawled_document'
             with open(folder + '/' + file_name + '.txt', 'w') as outfile:
                 json.dump(document, outfile)
 

@@ -5,11 +5,14 @@ from bs4 import BeautifulSoup
 # from urllib.parse import urlparse
 
 import json
-import os
+import os, sys
+# DIR = os.getcwd()
+# sys.path.append(DIR + "/../../")
+from inventory import FOX_DOC_DIR
 import pickle
 import time
 
-crawled_document_set_file = 'fox_crawled_document_set.pickle'
+crawled_document_set_file = FOX_DOC_DIR + '/fox_crawled_document_set.pickle'
 
 @gen.coroutine
 def get_page_links(url_set, url, layer):
@@ -121,7 +124,7 @@ def fetch_document(url, crawled_document_set):
             document['source'] = "FOX"
             file_name = url.split('/')[-1].split('.')[0]
 
-            folder = 'fox_crawled_document'
+            folder = FOX_DOC_DIR + '/fox_crawled_document'
             with open(folder + '/' + file_name + '.txt', 'w') as outfile:
                 json.dump(document, outfile)
 
