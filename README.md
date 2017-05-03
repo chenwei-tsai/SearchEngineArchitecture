@@ -11,17 +11,19 @@ The goal is to build a machine learning news topic classifier. We are going to w
 
 Since we use some python2 sklearn packages, please run the codes in linux machine with python 2.7 and the corresponding sklearn packages
 
-Please run below two lines of code in the root directory of SearchEngineArchitecture:
+Please run below codes in the root directory of SearchEngineArchitecture:
 
-python start_web_server.py
-python start_crawler_classifier.py
+* `python start_web_server.py`
+* `python FOXCrawler.py`
+* `python NBCCrawler.py`
+* `python NYTCrawler.py`
+* `python update_servers.py`
 
 ## How to test the program:
 
 The program is deployed at
 
-http://linserv2.cims.nyu.edu:27599
+http://linserv1.cims.nyu.edu:27599/
 
-But somehow the NYU linserv2 something will kill a run program if the the section is out of time.
-In this case please launch the program again
+But somehow the NYU linserv1 sometimes will kill a run program if the session is running out of time. In this case please launch the program again by typing above commands.
 
